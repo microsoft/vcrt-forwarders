@@ -1,4 +1,3 @@
-#pragma comment(linker, "/export:_stamp=vcomp140.stamp") 
 #pragma comment(linker, "/export:_C2VectParallel=vcomp140.C2VectParallel") 
 #pragma comment(linker, "/export:__vcomp_atomic_add_i1=vcomp140._vcomp_atomic_add_i1") 
 #pragma comment(linker, "/export:__vcomp_atomic_add_i2=vcomp140._vcomp_atomic_add_i2") 

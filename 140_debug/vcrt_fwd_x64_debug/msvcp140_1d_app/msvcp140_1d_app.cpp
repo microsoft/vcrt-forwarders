@@ -1,6 +1,3 @@
-#pragma comment(linker, "/export:_stamp=msvcp140_1d.stamp") 
-#pragma comment(linker, "/export:_functions=msvcp140_1d.functions") 
-#pragma comment(linker, "/export:_names=msvcp140_1d.names") 
 #pragma comment(linker, "/export:__Aligned_get_default_resource=msvcp140_1d._Aligned_get_default_resource") 
 #pragma comment(linker, "/export:__Aligned_new_delete_resource=msvcp140_1d._Aligned_new_delete_resource") 
 #pragma comment(linker, "/export:__Aligned_set_default_resource=msvcp140_1d._Aligned_set_default_resource") 

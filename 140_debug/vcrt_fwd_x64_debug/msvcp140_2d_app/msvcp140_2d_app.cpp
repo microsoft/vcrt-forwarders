@@ -1,4 +1,3 @@
-#pragma comment(linker, "/export:_stamp=msvcp140_2d.stamp") 
 #pragma comment(linker, "/export:___std_smf_assoc_laguerre=msvcp140_2d.__std_smf_assoc_laguerre") 
 #pragma comment(linker, "/export:___std_smf_assoc_laguerref=msvcp140_2d.__std_smf_assoc_laguerref") 
 #pragma comment(linker, "/export:___std_smf_assoc_legendre=msvcp140_2d.__std_smf_assoc_legendre") 

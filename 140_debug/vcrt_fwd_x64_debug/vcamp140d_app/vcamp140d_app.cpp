@@ -1,4 +1,3 @@
-#pragma comment(linker, "/export:stamp=vcamp140d.stamp") 
 #pragma comment(linker, "/export:??0_Event@details@Concurrency@@QEAA@AEBV012@@Z=vcamp140d.??0_Event@details@Concurrency@@QEAA@AEBV012@@Z") 
 #pragma comment(linker, "/export:??0_Event@details@Concurrency@@QEAA@XZ=vcamp140d.??0_Event@details@Concurrency@@QEAA@XZ") 
 #pragma comment(linker, "/export:??0accelerator@Concurrency@@AEAA@V?$_Reference_counted_obj_ptr@V_Accelerator_impl@details@Concurrency@@@details@1@@Z=vcamp140d.??0accelerator@Concurrency@@AEAA@V?$_Reference_counted_obj_ptr@V_Accelerator_impl@details@Concurrency@@@details@1@@Z") 

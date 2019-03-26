@@ -1,4 +1,3 @@
-#pragma comment(linker, "/export:stamp=vccorlib140.stamp") 
 #pragma comment(linker, "/export:?<Dispose>@Exception@Platform@@U$AAAXXZ=vccorlib140.?<Dispose>@Exception@Platform@@U$AAAXXZ") 
 #pragma comment(linker, "/export:?<Dispose>@String@Platform@@U$AAAXXZ=vccorlib140.?<Dispose>@String@Platform@@U$AAAXXZ") 
 #pragma comment(linker, "/export:?<Dispose>@Type@Platform@@U$AAAXXZ=vccorlib140.?<Dispose>@Type@Platform@@U$AAAXXZ") 

@@ -1,4 +1,3 @@
-#pragma comment(linker, "/export:_stamp=msvcp140_2.stamp") 
 #pragma comment(linker, "/export:____std_smf_assoc_laguerre@16=msvcp140_2.___std_smf_assoc_laguerre@16") 
 #pragma comment(linker, "/export:____std_smf_assoc_laguerref@12=msvcp140_2.___std_smf_assoc_laguerref@12") 
 #pragma comment(linker, "/export:____std_smf_assoc_legendre@16=msvcp140_2.___std_smf_assoc_legendre@16") 

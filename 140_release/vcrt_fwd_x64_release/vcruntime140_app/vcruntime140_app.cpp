@@ -1,4 +1,3 @@
-#pragma comment(linker, "/export:_stamp=vcruntime140.stamp") 
 #pragma comment(linker, "/export:__CreateFrameInfo=vcruntime140._CreateFrameInfo") 
 #pragma comment(linker, "/export:__CxxThrowException=vcruntime140._CxxThrowException") 
 #pragma comment(linker, "/export:__FindAndUnlinkFrame=vcruntime140._FindAndUnlinkFrame") 

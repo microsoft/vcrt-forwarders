@@ -1,4 +1,3 @@
-#pragma comment(linker, "/export:stamp=concrt140d.stamp") 
 #pragma comment(linker, "/export:??0?$_SpinWait@$00@details@Concurrency@@QEAA@P6AXXZ@Z=concrt140d.??0?$_SpinWait@$00@details@Concurrency@@QEAA@P6AXXZ@Z") 
 #pragma comment(linker, "/export:??0?$_SpinWait@$0A@@details@Concurrency@@QEAA@P6AXXZ@Z=concrt140d.??0?$_SpinWait@$0A@@details@Concurrency@@QEAA@P6AXXZ@Z") 
 #pragma comment(linker, "/export:??0SchedulerPolicy@Concurrency@@QEAA@AEBV01@@Z=concrt140d.??0SchedulerPolicy@Concurrency@@QEAA@AEBV01@@Z") 
