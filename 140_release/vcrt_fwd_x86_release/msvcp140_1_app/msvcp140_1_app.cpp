@@ -4,4 +4,4 @@
 #pragma comment(linker, "/export:__Unaligned_get_default_resource=msvcp140_1._Unaligned_get_default_resource")
 #pragma comment(linker, "/export:__Unaligned_new_delete_resource=msvcp140_1._Unaligned_new_delete_resource")
 #pragma comment(linker, "/export:__Unaligned_set_default_resource=msvcp140_1._Unaligned_set_default_resource")
-#pragma comment(linker, "/export:null_memory_resource=msvcp140_1.null_memory_resource")
+#pragma comment(linker, "/export:_null_memory_resource=msvcp140_1.null_memory_resource")

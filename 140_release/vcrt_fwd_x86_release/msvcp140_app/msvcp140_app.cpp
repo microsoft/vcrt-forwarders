@@ -1512,4 +1512,4 @@
 #pragma comment(linker, "/export:___crtSetThreadpoolWait=msvcp140.__crtSetThreadpoolWait")
 #pragma comment(linker, "/export:___crtWaitForThreadpoolTimerCallbacks=msvcp140.__crtWaitForThreadpoolTimerCallbacks")
 #pragma comment(linker, "/export:___set_stl_sync_api_mode=msvcp140.__set_stl_sync_api_mode")
-#pragma comment(linker, "/export:xtime_get=msvcp140.xtime_get")
+#pragma comment(linker, "/export:_xtime_get=msvcp140.xtime_get")
