@@ -23,7 +23,7 @@
     <ProjectGuid>{69FCE546-1277-4963-AE73-E2601504372C}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>vcamp140app</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.18309.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">

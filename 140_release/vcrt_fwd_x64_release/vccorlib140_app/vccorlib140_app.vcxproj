@@ -23,7 +23,7 @@
     <ProjectGuid>{05120DDE-D23A-4820-BDC2-ABC78D7FBD7F}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>vccorlib140app</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.18309.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
