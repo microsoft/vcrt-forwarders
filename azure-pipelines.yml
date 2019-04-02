@@ -10,7 +10,7 @@ pool:
   vmImage: 'VS2017-Win2016'
 
 variables:
-  imageName: 'VS2017-Win2016:$(build.buildId)'
+  imageName: 'vs2017-win2016:$(build.buildId)'
 
 steps:
 - script: docker build -f Dockerfile -t $(imageName) .
