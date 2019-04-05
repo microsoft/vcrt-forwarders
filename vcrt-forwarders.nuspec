@@ -21,5 +21,6 @@
         </dependencies>
     </metadata>
     <files>
+     <file src="runtimes\**" target="runtimes/" />
     </files>
 </package>
