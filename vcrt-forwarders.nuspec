@@ -21,7 +21,5 @@
         </dependencies>
     </metadata>
     <files>
-        <file src="bin/Release/appium-dotnet-driver.dll" target="lib/net45/appium-dotnet-driver.dll"/>
-        <file src="bin/Release/appium-dotnet-driver.XML" target="lib/net45/appium-dotnet-driver.XML"/>
     </files>
 </package>
