@@ -17,7 +17,11 @@
             App Local VCRT 140 DLLs
         </releaseNotes>
         <tags>vcrt forwarders native winrt vclibs</tags>
-        <dependencies>
-        </dependencies>
     </metadata>
+    <files>
+    <file src="Microsoft.VCRTForwarders.140.targets" target="build\native"/>
+    <file src="Microsoft.VCRTForwarders.140.targets" target="build\net45"/>
+    <file src="Microsoft.VCRTForwarders.140.targets" target="build\netcoreapp1.0"/>
+    <file src="Microsoft.VCRTForwarders.140.targets" target="build\netstandard1.0"/>
+  </files>
 </package>

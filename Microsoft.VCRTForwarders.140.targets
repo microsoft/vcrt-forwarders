@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+   
+   <!-- AnyCPU -->
+  <ItemGroup Condition="'$(Configuration)' == 'Debug' And '$(Platform)' == 'AnyCPU'">
+    <ReferenceCopyLocalPaths Include="$(MSBuildThisFileDirectory)..\..\runtimes\win10-x86\native\debug\*.dll" />
+    <ReferenceCopyLocalPaths Include="$(MSBuildThisFileDirectory)..\..\runtimes\win10-x86\native\release\*.dll" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(Configuration)' == 'Release' And '$(Platform)' == 'AnyCPU'">
+    <ReferenceCopyLocalPaths Include="$(MSBuildThisFileDirectory)..\..\runtimes\win10-x86\native\release\*.dll" />
+  </ItemGroup>
+
+  <!-- x86 -->
+  <ItemGroup Condition="'$(Configuration)' == 'Debug' And ('$(Platform)' == 'Win32' Or '$(Platform)' == 'x86')">
+    <ReferenceCopyLocalPaths Include="$(MSBuildThisFileDirectory)..\..\runtimes\win10-x86\native\debug\*.dll" />
+    <ReferenceCopyLocalPaths Include="$(MSBuildThisFileDirectory)..\..\runtimes\win10-x86\native\release\*.dll" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(Configuration)' == 'Release' And ('$(Platform)' == 'Win32' Or '$(Platform)' == 'x86')">
+   <ReferenceCopyLocalPaths Include="$(MSBuildThisFileDirectory)..\..\runtimes\win10-x86\native\release\*.dll" />
+  </ItemGroup>
+
+  <!-- x64 -->
+  <ItemGroup Condition="'$(Configuration)' == 'Debug' And '$(Platform)' == 'x64'">
+    <ReferenceCopyLocalPaths Include="$(MSBuildThisFileDirectory)..\..\runtimes\win10-x64\native\debug\*.dll" />
+    <ReferenceCopyLocalPaths Include="$(MSBuildThisFileDirectory)..\..\runtimes\win10-x64\native\release\*.dll" />
+  </ItemGroup>
+   <ItemGroup Condition="'$(Configuration)' == 'Release' And '$(Platform)' == 'x64'">
+    <ReferenceCopyLocalPaths Include="$(MSBuildThisFileDirectory)..\..\runtimes\win10-x64\native\release\*.dll" />
+  </ItemGroup>
+
+</Project>
