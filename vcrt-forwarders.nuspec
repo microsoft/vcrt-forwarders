@@ -13,7 +13,7 @@
         <requireLicenseAcceptance>true</requireLicenseAcceptance>
         <description>App-local DLLs that forward to runtime components of Visual C++ libraries which are required to run Visual C++ applications. The runtime components being forwarded to should already be installed on a given machine, this can be done using the Visual C++ Redistributable Packages https://aka.ms/AA4pp63 </description>
         <releaseNotes>
-            140.0.0
+            1.0.0
             App Local VCRT 140 DLLs
         </releaseNotes>
         <tags>vcrt forwarders native winrt vclibs</tags>
@@ -21,8 +21,7 @@
     <files>
     <file src="Microsoft.VCRTForwarders.140.targets" target="build\native"/>
     <file src="Microsoft.VCRTForwarders.140.targets" target="build\net45"/>
-    <file src="Microsoft.VCRTForwarders.140.targets" target="build\netcoreapp1.0"/>
-    <file src="Microsoft.VCRTForwarders.140.targets" target="build\netstandard1.0"/>
+    <file src="Microsoft.VCRTForwarders.140.targets" target="build\netcoreapp2.0"/>
 
     <file src="runtimes\win10-x64\native\debug\*.dll" target="runtimes\win10-x64\native\debug\"/>
     <file src="runtimes\win10-x64\native\release\*.dll" target="runtimes\win10-x64\native\release\"/>

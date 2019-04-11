@@ -1,15 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
    
-   <!-- AnyCPU -->
-  <ItemGroup Condition="'$(Configuration)' == 'Debug' And '$(Platform)' == 'AnyCPU'">
-    <ReferenceCopyLocalPaths Include="$(MSBuildThisFileDirectory)..\..\runtimes\win10-x86\native\debug\*.dll" />
-    <ReferenceCopyLocalPaths Include="$(MSBuildThisFileDirectory)..\..\runtimes\win10-x86\native\release\*.dll" />
-  </ItemGroup>
-  <ItemGroup Condition="'$(Configuration)' == 'Release' And '$(Platform)' == 'AnyCPU'">
-    <ReferenceCopyLocalPaths Include="$(MSBuildThisFileDirectory)..\..\runtimes\win10-x86\native\release\*.dll" />
-  </ItemGroup>
-
   <!-- x86 -->
   <ItemGroup Condition="'$(Configuration)' == 'Debug' And ('$(Platform)' == 'Win32' Or '$(Platform)' == 'x86')">
     <ReferenceCopyLocalPaths Include="$(MSBuildThisFileDirectory)..\..\runtimes\win10-x86\native\debug\*.dll" />
@@ -26,6 +17,11 @@
   </ItemGroup>
    <ItemGroup Condition="'$(Configuration)' == 'Release' And '$(Platform)' == 'x64'">
     <ReferenceCopyLocalPaths Include="$(MSBuildThisFileDirectory)..\..\runtimes\win10-x64\native\release\*.dll" />
+  </ItemGroup>
+
+   <!-- AnyCPU NOT supported-->
+  <ItemGroup Condition="'$(Platform)' == 'AnyCPU'">
+    <Warning Text="Because your app is being built as AnyCPU no Microsoft.VCRTForwarder DLLs were copied to your ouput folder. Microsoft.VCRTForwarders only supports x86 or x64 apps. Please change your project architecture to x86 or x64 in the Build Configuration Manager. " />
   </ItemGroup>
 
 </Project>
