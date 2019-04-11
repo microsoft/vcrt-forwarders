@@ -23,5 +23,10 @@
     <file src="Microsoft.VCRTForwarders.140.targets" target="build\net45"/>
     <file src="Microsoft.VCRTForwarders.140.targets" target="build\netcoreapp1.0"/>
     <file src="Microsoft.VCRTForwarders.140.targets" target="build\netstandard1.0"/>
+
+    <file src="runtimes\win10-x64\native\debug\*.dll" target="runtimes\win10-x64\native\debug\"/>
+    <file src="runtimes\win10-x64\native\release\*.dll" target="runtimes\win10-x64\native\release\"/>
+    <file src="runtimes\win10-x86\native\debug\*.dll" target="runtimes\win10-x86\native\debug\"/>
+    <file src="runtimes\win10-x86\native\release\*.dll" target="runtimes\win10-x86\native\release\"/>
   </files>
 </package>
