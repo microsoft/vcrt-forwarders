@@ -19,6 +19,11 @@
     <ReferenceCopyLocalPaths Include="$(MSBuildThisFileDirectory)..\..\runtimes\win10-x64\native\release\*.dll" />
   </ItemGroup>
 
-
+  <!--AnyCPU -->
+  <Target Name="ValidateAnyCPU">
+    <Warning 
+      Text=" Because your app is being built as AnyCPU, no Microsoft.VCRTForwarders.140 DLLs were copied to your ouput folder. Microsoft.VCRTForwarders.140 only supports x86 or x64 applications due to C++ Runtime dependency. Please change your app project architecture to x86 or x64 in the Configuration Manager."
+      Condition="'$(Platform)' == 'AnyCPU'" />
+  </Target>
 
 </Project>
