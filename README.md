@@ -2,6 +2,14 @@
 
 This project contains App-local DLLs that forward to runtime components of Visual C++ libraries which are required to run Visual C++ applications. The runtime components being forwarded to should already be installed on a given machine, this can be done using the Visual C++ [Redistributable Packages](https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads).
 
+## NuGet Package
+
+The NuGet package Microsoft.VCRTForwarders.140 can be found [here](https://aka.ms/vcrtfwdnuget).
+
+## Sample usage
+
+You can find samples of apps using the forwarders [here](https://aka.ms/regfreewinrtsample).
+
 ## Contributing
 
 This project welcomes contributions and suggestions.  Most contributions require you to agree to a
