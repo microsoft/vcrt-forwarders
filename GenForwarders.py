@@ -5,9 +5,9 @@ import sys
 
 if len(sys.argv) != 3:
 	print("Usage: GenForwarders.py <vs_folder> <vc_version_to_generate>")
+	print("Last version generated 14.21.27702")
 	exit()
 
-# Last version generated 14.21.27702
 VSFolder = sys.argv[1]
 VCVersion = sys.argv[2]
 
