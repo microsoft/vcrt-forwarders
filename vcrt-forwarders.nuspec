@@ -27,5 +27,7 @@
     <file src="runtimes\win10-x64\native\release\*.dll" target="runtimes\win10-x64\native\release\"/>
     <file src="runtimes\win10-x86\native\debug\*.dll" target="runtimes\win10-x86\native\debug\"/>
     <file src="runtimes\win10-x86\native\release\*.dll" target="runtimes\win10-x86\native\release\"/>
+    <file src="runtimes\win10-arm64\native\debug\*.dll" target="runtimes\win10-arm64\native\debug\"/>
+    <file src="runtimes\win10-arm64\native\release\*.dll" target="runtimes\win10-arm64\native\release\"/>
   </files>
 </package>
