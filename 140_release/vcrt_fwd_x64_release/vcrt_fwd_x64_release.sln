@@ -21,6 +21,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "vcomp140_app", "vcomp140_ap
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "vcruntime140_app", "vcruntime140_app\vcruntime140_app.vcxproj", "{54EF306F-5425-4062-A03F-289622DC40DD}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "vcruntime140_1_app", "vcruntime140_1_app\vcruntime140_1_app.vcxproj", "{4C2CBCC1-83A0-410E-9160-A5AE4301065A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Release|x64 = Release|x64
@@ -44,6 +46,8 @@ Global
 		{5E021F7E-7681-477A-AA60-5E8B7F29B8BC}.Release|x64.Build.0 = Release|x64
 		{54EF306F-5425-4062-A03F-289622DC40DD}.Release|x64.ActiveCfg = Release|x64
 		{54EF306F-5425-4062-A03F-289622DC40DD}.Release|x64.Build.0 = Release|x64
+		{4C2CBCC1-83A0-410E-9160-A5AE4301065A}.Release|x64.ActiveCfg = Release|x64
+		{4C2CBCC1-83A0-410E-9160-A5AE4301065A}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

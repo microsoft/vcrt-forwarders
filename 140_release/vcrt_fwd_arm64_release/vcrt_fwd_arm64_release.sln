@@ -1,0 +1,54 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.645
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "concrt140_app", "concrt140_app\concrt140_app.vcxproj", "{5F48F7B9-F035-4EA6-8B61-BB661BEB905F}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "msvcp140_1_app", "msvcp140_1_app\msvcp140_1_app.vcxproj", "{4F46D796-AA9F-4B9D-ABFA-AFEABBFE4766}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "msvcp140_2_app", "msvcp140_2_app\msvcp140_2_app.vcxproj", "{612A6C20-88B4-4780-80A1-437E4A13387C}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "msvcp140_app", "msvcp140_app\msvcp140_app.vcxproj", "{C310223E-41AF-4141-A3E7-15273B1D476F}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "vcamp140_app", "vcamp140_app\vcamp140_app.vcxproj", "{A582994C-7361-4C61-B927-3759A0928BC2}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "vccorlib140_app", "vccorlib140_app\vccorlib140_app.vcxproj", "{86C2E5FB-438D-498F-8DE3-A6DAB8AB0D40}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "vcomp140_app", "vcomp140_app\vcomp140_app.vcxproj", "{3A84941A-0267-44D8-991D-7DA5BE78E4D7}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "vcruntime140_app", "vcruntime140_app\vcruntime140_app.vcxproj", "{7549B17A-7DDC-4931-A5C8-983AF1EEB58A}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "vcrt_fwd_arm64_release", "vcrt_fwd_arm64_release\vcrt_fwd_arm64_release.vcxproj", "{94C9B900-1CAE-443A-883D-C3773A5A25AC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Release|ARM64 = Release|ARM64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5F48F7B9-F035-4EA6-8B61-BB661BEB905F}.Release|ARM64.ActiveCfg = Release|ARM64
+		{5F48F7B9-F035-4EA6-8B61-BB661BEB905F}.Release|ARM64.Build.0 = Release|ARM64
+		{4F46D796-AA9F-4B9D-ABFA-AFEABBFE4766}.Release|ARM64.ActiveCfg = Release|ARM64
+		{4F46D796-AA9F-4B9D-ABFA-AFEABBFE4766}.Release|ARM64.Build.0 = Release|ARM64
+		{612A6C20-88B4-4780-80A1-437E4A13387C}.Release|ARM64.ActiveCfg = Release|ARM64
+		{612A6C20-88B4-4780-80A1-437E4A13387C}.Release|ARM64.Build.0 = Release|ARM64
+		{C310223E-41AF-4141-A3E7-15273B1D476F}.Release|ARM64.ActiveCfg = Release|ARM64
+		{C310223E-41AF-4141-A3E7-15273B1D476F}.Release|ARM64.Build.0 = Release|ARM64
+		{A582994C-7361-4C61-B927-3759A0928BC2}.Release|ARM64.ActiveCfg = Release|ARM64
+		{A582994C-7361-4C61-B927-3759A0928BC2}.Release|ARM64.Build.0 = Release|ARM64
+		{86C2E5FB-438D-498F-8DE3-A6DAB8AB0D40}.Release|ARM64.ActiveCfg = Release|ARM64
+		{86C2E5FB-438D-498F-8DE3-A6DAB8AB0D40}.Release|ARM64.Build.0 = Release|ARM64
+		{3A84941A-0267-44D8-991D-7DA5BE78E4D7}.Release|ARM64.ActiveCfg = Release|ARM64
+		{3A84941A-0267-44D8-991D-7DA5BE78E4D7}.Release|ARM64.Build.0 = Release|ARM64
+		{7549B17A-7DDC-4931-A5C8-983AF1EEB58A}.Release|ARM64.ActiveCfg = Release|ARM64
+		{7549B17A-7DDC-4931-A5C8-983AF1EEB58A}.Release|ARM64.Build.0 = Release|ARM64
+		{94C9B900-1CAE-443A-883D-C3773A5A25AC}.Release|ARM64.ActiveCfg = Release|ARM64
+		{94C9B900-1CAE-443A-883D-C3773A5A25AC}.Release|ARM64.Build.0 = Release|ARM64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E9A69D76-09C4-491B-8426-BE8513FB717F}
+	EndGlobalSection
+EndGlobal

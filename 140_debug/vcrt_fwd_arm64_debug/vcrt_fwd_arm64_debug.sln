@@ -1,0 +1,54 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.645
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "concrt140d_app", "concrt140d_app\concrt140d_app.vcxproj", "{92938D05-8066-48FB-8F1C-78DAC379E8BE}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "msvcp140_1d_app", "msvcp140_1d_app\msvcp140_1d_app.vcxproj", "{F01A1A23-B334-4B96-BC53-DD1D4CF6B232}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "msvcp140_2d_app", "msvcp140_2d_app\msvcp140_2d_app.vcxproj", "{D05279BC-93B3-4D51-9A3C-900DD3F45701}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "msvcp140d_app", "msvcp140d_app\msvcp140d_app.vcxproj", "{B5C84E85-7992-40BF-A598-1B1E6EC9B64C}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "vcamp140d_app", "vcamp140d_app\vcamp140d_app.vcxproj", "{EE3B46B9-5482-49AA-B38C-80478D217FC1}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "vccorlib140d_app", "vccorlib140d_app\vccorlib140d_app.vcxproj", "{DBCC2A40-2A1F-4F30-B326-650A41A28CB3}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "vcomp140d_app", "vcomp140d_app\vcomp140d_app.vcxproj", "{A9496A70-646B-4A27-B66F-EF0ACB8A8D2A}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "vcruntime140d_app", "vcruntime140d_app\vcruntime140d_app.vcxproj", "{92F726F8-2A91-4A81-B78A-F14012097FA0}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "vcrt_fwd_arm64_debug", "vcrt_fwd_arm64_debug\vcrt_fwd_arm64_debug.vcxproj", "{74291B62-6CD3-49F7-9C59-DB43BDC0DD3F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|ARM64 = Debug|ARM64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{92938D05-8066-48FB-8F1C-78DAC379E8BE}.Debug|ARM64.ActiveCfg = Debug|ARM64
+		{92938D05-8066-48FB-8F1C-78DAC379E8BE}.Debug|ARM64.Build.0 = Debug|ARM64
+		{F01A1A23-B334-4B96-BC53-DD1D4CF6B232}.Debug|ARM64.ActiveCfg = Debug|ARM64
+		{F01A1A23-B334-4B96-BC53-DD1D4CF6B232}.Debug|ARM64.Build.0 = Debug|ARM64
+		{D05279BC-93B3-4D51-9A3C-900DD3F45701}.Debug|ARM64.ActiveCfg = Debug|ARM64
+		{D05279BC-93B3-4D51-9A3C-900DD3F45701}.Debug|ARM64.Build.0 = Debug|ARM64
+		{B5C84E85-7992-40BF-A598-1B1E6EC9B64C}.Debug|ARM64.ActiveCfg = Debug|ARM64
+		{B5C84E85-7992-40BF-A598-1B1E6EC9B64C}.Debug|ARM64.Build.0 = Debug|ARM64
+		{EE3B46B9-5482-49AA-B38C-80478D217FC1}.Debug|ARM64.ActiveCfg = Debug|ARM64
+		{EE3B46B9-5482-49AA-B38C-80478D217FC1}.Debug|ARM64.Build.0 = Debug|ARM64
+		{DBCC2A40-2A1F-4F30-B326-650A41A28CB3}.Debug|ARM64.ActiveCfg = Debug|ARM64
+		{DBCC2A40-2A1F-4F30-B326-650A41A28CB3}.Debug|ARM64.Build.0 = Debug|ARM64
+		{A9496A70-646B-4A27-B66F-EF0ACB8A8D2A}.Debug|ARM64.ActiveCfg = Debug|ARM64
+		{A9496A70-646B-4A27-B66F-EF0ACB8A8D2A}.Debug|ARM64.Build.0 = Debug|ARM64
+		{92F726F8-2A91-4A81-B78A-F14012097FA0}.Debug|ARM64.ActiveCfg = Debug|ARM64
+		{92F726F8-2A91-4A81-B78A-F14012097FA0}.Debug|ARM64.Build.0 = Debug|ARM64
+		{74291B62-6CD3-49F7-9C59-DB43BDC0DD3F}.Debug|ARM64.ActiveCfg = Debug|ARM64
+		{74291B62-6CD3-49F7-9C59-DB43BDC0DD3F}.Debug|ARM64.Build.0 = Debug|ARM64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8D9CFCF4-2123-4F6C-BBFC-DCD08660F828}
+	EndGlobalSection
+EndGlobal
