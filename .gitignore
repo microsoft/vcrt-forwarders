@@ -19,6 +19,7 @@ runtimes/
 [Rr]elease/
 [Rr]eleases/
 x64/
+![Uu]nity/x64/
 x86/
 bld/
 [Bb]in/
@@ -64,6 +65,7 @@ StyleCopReport.xml
 *_i.h
 *.ilk
 *.meta
+![Uu]nity/**/*.meta
 *.obj
 *.iobj
 *.pch
