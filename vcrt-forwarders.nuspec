@@ -2,7 +2,7 @@
 <package>
     <metadata>
         <id>Microsoft.VCRTForwarders.140</id>
-        <version>1.0.3</version>
+        <version>1.0.4</version>
         <title>VCRT 140 App-Local DLL Forwarders</title>
         <authors>Microsoft</authors>
         <owners>Microsoft</owners>
@@ -14,6 +14,9 @@
         <description>App-local DLLs that forward to runtime components of Visual C++ libraries which are required to run Visual C++ applications. The runtime components being forwarded to should already be installed on a given machine, this can be done using the Visual C++ Redistributable Packages https://aka.ms/AA4pp63. See https://github.com/Microsoft/vcrt-forwarders for more details. </description>
         <releaseNotes>
 
+            1.0.4
+            Update Unity support to use .asmdef files
+            
             1.0.3
             Release version
 
