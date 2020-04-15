@@ -4,34 +4,91 @@
   <PropertyGroup>
     <!-- Output folder for MSBuildForUnity -->
     <VCRTForwarders-PackageDestinationFolder>$(MSBuildThisFileName)</VCRTForwarders-PackageDestinationFolder>
+    <VCRTForwarders-ForceDebugCRT Condition="'$(VCRTForwarders-ForceDebugCRT)' == ''">false</VCRTForwarders-ForceDebugCRT>
+    <ResolveReferencesDependsOn>
+      $(ResolveReferencesDependsOn);ResolveVCRTForwarderReferences;
+    </ResolveReferencesDependsOn>
   </PropertyGroup>
 
-  <!-- x86 -->
-  <ItemGroup Condition="'$(Configuration)' == 'Debug' And ('$(Platform)' == 'Win32' Or '$(Platform)' == 'x86')">
-    <ReferenceCopyLocalPaths Include="$(MSBuildThisFileDirectory)..\..\runtimes\win10-x86\native\debug\*.dll" />
-    <ReferenceCopyLocalPaths Include="$(MSBuildThisFileDirectory)..\..\runtimes\win10-x86\native\release\*.dll" />
-  </ItemGroup>
-  <ItemGroup Condition="'$(Configuration)' == 'Release' And ('$(Platform)' == 'Win32' Or '$(Platform)' == 'x86')">
-   <ReferenceCopyLocalPaths Include="$(MSBuildThisFileDirectory)..\..\runtimes\win10-x86\native\release\*.dll" />
-  </ItemGroup>
+  <UsingTask TaskName="UseDebugCRT" TaskFactory="CodeTaskFactory" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.v4.0.dll">
+    <ParameterGroup>
+      <ProjectFile ParameterType="System.String" Required="true" />
+      <Configuration ParameterType="System.String" Required="true" />
+      <Platform ParameterType="System.String" Required="true" />
+      <TaskOutput ParameterType="System.Boolean" Output="true" />
+    </ParameterGroup>
+    <Task>
+      <Reference Include="System.Xml"/>
+      <Reference Include="Microsoft.Build"/>
+      <Using Namespace="Microsoft.Build" />
+      <Using Namespace="Microsoft.Build.Evaluation" />
+      <Code Type="Fragment" Language="cs">
+        <![CDATA[
 
-  <!-- x64 -->
-  <ItemGroup Condition="'$(Configuration)' == 'Debug' And '$(Platform)' == 'x64'">
-    <ReferenceCopyLocalPaths Include="$(MSBuildThisFileDirectory)..\..\runtimes\win10-x64\native\debug\*.dll" />
-    <ReferenceCopyLocalPaths Include="$(MSBuildThisFileDirectory)..\..\runtimes\win10-x64\native\release\*.dll" />
-  </ItemGroup>
-   <ItemGroup Condition="'$(Configuration)' == 'Release' And '$(Platform)' == 'x64'">
-    <ReferenceCopyLocalPaths Include="$(MSBuildThisFileDirectory)..\..\runtimes\win10-x64\native\release\*.dll" />
-  </ItemGroup>
+        var properties = new Dictionary<string, string>
+        {
+          { "Configuration", Configuration },
+          { "Platform", Platform }
+        };
+        
+        // Per MSDN, _DEBUG define can be checked to determine if debug CRT is in use.
+        var collection = new ProjectCollection(properties);
+        var project = collection.LoadProject(ProjectFile);
+        ProjectMetadata def = project.AllEvaluatedItemDefinitionMetadata
+                                     .LastOrDefault(p => p.ItemType == "ClCompile" && p.Name == "PreprocessorDefinitions");
+        Boolean useDebug = def != null && (";" + def.EvaluatedValue + ";").Contains(";_DEBUG;");
 
-  <!-- arm64 -->
-  <ItemGroup Condition="'$(Configuration)' == 'Debug' And '$(Platform)' == 'ARM64'">
-    <ReferenceCopyLocalPaths Include="$(MSBuildThisFileDirectory)..\..\runtimes\win10-arm64\native\debug\*.dll" />
-    <ReferenceCopyLocalPaths Include="$(MSBuildThisFileDirectory)..\..\runtimes\win10-arm64\native\release\*.dll" />
-  </ItemGroup>
-   <ItemGroup Condition="'$(Configuration)' == 'Release' And '$(Platform)' == 'ARM64'">
-    <ReferenceCopyLocalPaths Include="$(MSBuildThisFileDirectory)..\..\runtimes\win10-arm64\native\release\*.dll" />
-  </ItemGroup>
+        // There seem to be cases where even if _DEBUG is not found, debug CRT is used based on RuntimeLibrary.
+        if(!useDebug)
+        {
+          ProjectMetadata runtimeLibrary = project.AllEvaluatedItemDefinitionMetadata
+                                                  .LastOrDefault(p => p.ItemType == "ClCompile" && p.Name == "RuntimeLibrary");
+          useDebug = runtimeLibrary != null && (String.Compare(runtimeLibrary.EvaluatedValue, "MultiThreadedDebugDLL", true) == 0 ||
+                                                String.Compare(runtimeLibrary.EvaluatedValue, "MultiThreadedDebug", true) == 0);
+        }
+
+        TaskOutput = useDebug;
+        
+        ]]>
+      </Code>
+    </Task>
+  </UsingTask>
+  
+  <Target Name="ResolveVCRTForwarderReferences">
+    <UseDebugCRT ProjectFile="%(ProjectReferenceWithConfiguration.Identity)"
+                 Configuration="%(ProjectReferenceWithConfiguration.Configuration)"
+                 Platform="%(ProjectReferenceWithConfiguration.Platform)"
+                 Condition="'@(ProjectReferenceWithConfiguration)' != ''">
+      <Output ItemName="TaskOutput" TaskParameter="TaskOutput"/>
+    </UseDebugCRT>
+    <PropertyGroup>
+      <_VCRTForwarders-UseDebug Condition="'%(TaskOutput.Identity)' == 'true'">true</_VCRTForwarders-UseDebug>
+    </PropertyGroup>
+
+    <!-- x86 -->
+    <ItemGroup Condition="($(_VCRTForwarders-UseDebug) == true Or $(VCRTForwarders-ForceDebugCRT) == true) And ('$(Platform)' == 'Win32' Or '$(Platform)' == 'x86')">
+      <ReferenceCopyLocalPaths Include="$(MSBuildThisFileDirectory)..\..\runtimes\win10-x86\native\debug\*.dll" />
+    </ItemGroup>
+    <ItemGroup Condition="'$(Platform)' == 'Win32' Or '$(Platform)' == 'x86'">
+      <ReferenceCopyLocalPaths Include="$(MSBuildThisFileDirectory)..\..\runtimes\win10-x86\native\release\*.dll" />
+    </ItemGroup>
+
+    <!-- x64 -->
+    <ItemGroup Condition="($(_VCRTForwarders-UseDebug) == true Or $(VCRTForwarders-ForceDebugCRT) == true) And '$(Platform)' == 'x64'">
+      <ReferenceCopyLocalPaths Include="$(MSBuildThisFileDirectory)..\..\runtimes\win10-x64\native\debug\*.dll" />
+    </ItemGroup>
+    <ItemGroup Condition="'$(Platform)' == 'x64'">
+      <ReferenceCopyLocalPaths Include="$(MSBuildThisFileDirectory)..\..\runtimes\win10-x64\native\release\*.dll" />
+    </ItemGroup>
+
+    <!-- arm64 -->
+    <ItemGroup Condition="($(_VCRTForwarders-UseDebug) == true Or $(VCRTForwarders-ForceDebugCRT) == true) And '$(Platform)' == 'ARM64'">
+      <ReferenceCopyLocalPaths Include="$(MSBuildThisFileDirectory)..\..\runtimes\win10-arm64\native\debug\*.dll" />
+    </ItemGroup>
+    <ItemGroup Condition="'$(Platform)' == 'ARM64'">
+      <ReferenceCopyLocalPaths Include="$(MSBuildThisFileDirectory)..\..\runtimes\win10-arm64\native\release\*.dll" />
+    </ItemGroup>
+  </Target>
 
   <!-- MSBuildForUnity support -->
   <ItemGroup Condition="'$(MSBuildForUnityVersion)' != ''">
@@ -45,7 +102,7 @@
 
   <!--AnyCPU Not Supported -->
   <Target Name="BeforeBuild" Condition="'$(Platform)' == 'AnyCPU'" >
-        <Warning Text=" Because your app is being built as AnyCPU no Microsoft.VCRTForwarders.140 DLLs were copied to your ouput folder. Microsoft.VCRTForwarders.140 only supports x86 or x64 applications due to a C++ Runtime dependency. Please change your app project architecture to x86 or x64 in the Configuration Manager."/>
+        <Warning Text=" Because your app is being built as AnyCPU no Microsoft.VCRTForwarders.140 DLLs were copied to your ouput folder. Microsoft.VCRTForwarders.140 only supports x86, x64, or arm64 applications due to a C++ Runtime dependency. Please change your app project architecture to x86, x64, or arm64 in the Configuration Manager."/>
   </Target>
 
 </Project>
