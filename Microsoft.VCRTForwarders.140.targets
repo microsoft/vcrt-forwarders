@@ -4,7 +4,7 @@
   <PropertyGroup>
     <!-- Output folder for MSBuildForUnity -->
     <VCRTForwarders-PackageDestinationFolder>$(MSBuildThisFileName)</VCRTForwarders-PackageDestinationFolder>
-    <VCRTForwarders-ForceDebugCRT Condition="'$(VCRTForwarders-ForceDebugCRT)' == ''">false</VCRTForwarders-ForceDebugCRT>
+    <VCRTForwarders-IncludeDebugCRT Condition="'$(VCRTForwarders-IncludeDebugCRT)' == '' And '$(Configuration)' == 'Debug'">true</VCRTForwarders-IncludeDebugCRT>
     <ResolveReferencesDependsOn>
       $(ResolveReferencesDependsOn);ResolveVCRTForwarderReferences;
     </ResolveReferencesDependsOn>
@@ -58,15 +58,15 @@
     <UseDebugCRT ProjectFile="%(ProjectReferenceWithConfiguration.Identity)"
                  Configuration="%(ProjectReferenceWithConfiguration.Configuration)"
                  Platform="%(ProjectReferenceWithConfiguration.Platform)"
-                 Condition="'@(ProjectReferenceWithConfiguration)' != ''">
+                 Condition="'@(ProjectReferenceWithConfiguration)' != '' And '$(VCRTForwarders-IncludeDebugCRT)' == ''">
       <Output ItemName="TaskOutput" TaskParameter="TaskOutput"/>
     </UseDebugCRT>
     <PropertyGroup>
-      <_VCRTForwarders-UseDebug Condition="'%(TaskOutput.Identity)' == 'true'">true</_VCRTForwarders-UseDebug>
+      <VCRTForwarders-IncludeDebugCRT Condition="'%(TaskOutput.Identity)' == 'true'">true</VCRTForwarders-IncludeDebugCRT>
     </PropertyGroup>
 
     <!-- x86 -->
-    <ItemGroup Condition="($(_VCRTForwarders-UseDebug) == true Or $(VCRTForwarders-ForceDebugCRT) == true) And ('$(Platform)' == 'Win32' Or '$(Platform)' == 'x86')">
+    <ItemGroup Condition="$(VCRTForwarders-IncludeDebugCRT) == true And ('$(Platform)' == 'Win32' Or '$(Platform)' == 'x86')">
       <ReferenceCopyLocalPaths Include="$(MSBuildThisFileDirectory)..\..\runtimes\win10-x86\native\debug\*.dll" />
     </ItemGroup>
     <ItemGroup Condition="'$(Platform)' == 'Win32' Or '$(Platform)' == 'x86'">
@@ -74,7 +74,7 @@
     </ItemGroup>
 
     <!-- x64 -->
-    <ItemGroup Condition="($(_VCRTForwarders-UseDebug) == true Or $(VCRTForwarders-ForceDebugCRT) == true) And '$(Platform)' == 'x64'">
+    <ItemGroup Condition="$(VCRTForwarders-IncludeDebugCRT) == true And '$(Platform)' == 'x64'">
       <ReferenceCopyLocalPaths Include="$(MSBuildThisFileDirectory)..\..\runtimes\win10-x64\native\debug\*.dll" />
     </ItemGroup>
     <ItemGroup Condition="'$(Platform)' == 'x64'">
@@ -82,7 +82,7 @@
     </ItemGroup>
 
     <!-- arm64 -->
-    <ItemGroup Condition="($(_VCRTForwarders-UseDebug) == true Or $(VCRTForwarders-ForceDebugCRT) == true) And '$(Platform)' == 'ARM64'">
+    <ItemGroup Condition="$(VCRTForwarders-IncludeDebugCRT) == true And '$(Platform)' == 'ARM64'">
       <ReferenceCopyLocalPaths Include="$(MSBuildThisFileDirectory)..\..\runtimes\win10-arm64\native\debug\*.dll" />
     </ItemGroup>
     <ItemGroup Condition="'$(Platform)' == 'ARM64'">
