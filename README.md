@@ -6,6 +6,11 @@ This project contains App-local DLLs that forward to runtime DLLs that are requi
 
 The NuGet package Microsoft.VCRTForwarders.140 can be found [here](https://aka.ms/vcrtfwdnuget).
 
+Referencing the package will include the appropriate version of the forwarders on supported architectures based
+on the CRT (debug / release) in use in the component project. For projects using custom debug configurations and referencing the component DLL
+directly rather than via project (i.e C++ applications), the `VCRTForwarders-IncludeDebugCRT` property can be set to `true`
+for that configuration to ensure inclusion of the debug CRT forwarders.
+
 ## Sample usage
 
 You can find samples of C++ and C# apps using the forwarders [here](https://aka.ms/regfreewinrtsample).
