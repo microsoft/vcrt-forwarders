@@ -1,11 +1,11 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Runtime.InteropServices;
 using UnityEditor;
 using UnityEngine;
 
 [InitializeOnLoad]
-public class InitVCRTForwarders : MonoBehaviour
+public class InitVCRTForwarders
 {
     [DllImport("kernel32.dll", SetLastError = true)]
     static extern IntPtr LoadLibraryExW([MarshalAs(UnmanagedType.LPWStr)] string fileName, IntPtr fileHandle, uint flags);
