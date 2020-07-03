@@ -61,7 +61,10 @@
     <UseDebugCRT ProjectFile="%(ProjectReferenceWithConfiguration.Identity)"
                  Configuration="%(ProjectReferenceWithConfiguration.Configuration)"
                  Platform="%(ProjectReferenceWithConfiguration.Platform)"
-                 Condition="'@(ProjectReferenceWithConfiguration)' != '' And '$(VCRTForwarders-IncludeDebugCRT)' == ''">
+                 Condition="'@(ProjectReferenceWithConfiguration)' != '' And 
+                            '%(ProjectReferenceWithConfiguration.Configuration)' != '' And
+                            '%(ProjectReferenceWithConfiguration.Platform)' != '' And
+                            '$(VCRTForwarders-IncludeDebugCRT)' == ''">
       <Output ItemName="TaskOutput" TaskParameter="TaskOutput"/>
     </UseDebugCRT>
     <PropertyGroup>
