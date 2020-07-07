@@ -65,10 +65,10 @@
                             '%(ProjectReferenceWithConfiguration.Configuration)' != '' And
                             '%(ProjectReferenceWithConfiguration.Platform)' != '' And
                             '$(VCRTForwarders-IncludeDebugCRT)' == ''">
-      <Output ItemName="TaskOutput" TaskParameter="TaskOutput"/>
+      <Output ItemName="_VCRTForwarders-TaskOutput" TaskParameter="TaskOutput"/>
     </UseDebugCRT>
     <PropertyGroup>
-      <VCRTForwarders-IncludeDebugCRT Condition="'%(TaskOutput.Identity)' == 'true'">true</VCRTForwarders-IncludeDebugCRT>
+      <VCRTForwarders-IncludeDebugCRT Condition="'%(_VCRTForwarders-TaskOutput.Identity)' == 'true'">true</VCRTForwarders-IncludeDebugCRT>
     </PropertyGroup>
     
     <ItemGroup Condition="$(VCRTForwarders-IncludeDebugCRT) == true And $(_VCRTForwarders-SupportedPlatform) == true">
@@ -77,6 +77,12 @@
     <ItemGroup Condition="$(_VCRTForwarders-SupportedPlatform) == true">
       <ReferenceCopyLocalPaths Include="$(MSBuildThisFileDirectory)..\..\runtimes\win10-$(_VCRTForwarders-Platform)\native\release\*.dll" />
     </ItemGroup>
+
+    <Warning Condition="'$(VCRTForwarders-IncludeDebugCRT)' == '' And
+                        '@(_VCRTForwarders-TaskOutput)' == '' And
+                         $(_VCRTForwarders-SupportedPlatform) == true And
+                        '@(ProjectReferenceWithConfiguration)' != ''"
+             Text="Microsoft.VCRTForwarders.140 wasn't able to resolve the project's references to determine whether to copy the debug version of the forwarder DLLs. If they are needed due to the use of the debug CRT, please manually set the VCRTForwarders-IncludeDebugCRT property to true for the respective configuration in your project or props file."/>
   </Target>
 
   <!-- MSBuildForUnity support -->
