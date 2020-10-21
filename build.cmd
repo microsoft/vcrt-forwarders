@@ -10,7 +10,16 @@ for %%c in (debug release) do (
 	)
 )
 
+@rem Prepare for UPM packaging
+for /r %%d in (140_release\vcrt_fwd_x64_release\*.dll) do xcopy /y "%%~d" "%~dp0\Unity\x64"
+for %%f in (LICENSE CHANGELOG.md README.md) do copy /y "%~dp0\%%f" "%~dp0\Unity\%%f"
+
 where nuget.exe >nul 2>&1 || echo Couldn't find nuget.exe! && goto :eof
 nuget pack vcrt-forwarders.nuspec
+
+where npm.cmd >nul 2>&1 || echo Couldn't find npm.cmd! && goto :eof
+pushd Unity
+npm pack
+popd
 
 popd
