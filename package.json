@@ -1,0 +1,25 @@
+{
+    "name": "com.microsoft.vcrtforwarders.140",
+    "displayName": "VCRT 140 App-Local DLL Forwarders",
+    "version": "1.0.6",
+    "unity": "2019.4",
+    "description": "App-local DLLs that forward to runtime components of Visual C++ libraries which are required to run Visual C++ applications. The runtime components being forwarded to should already be installed on a given machine, this can be done using the Visual C++ Redistributable Packages https://aka.ms/AA4pp63. See https://github.com/Microsoft/vcrt-forwarders for more details.",
+    "keywords": [
+        "msvcrt",
+        "registration-free",
+        "winrt"
+    ],
+    "author": "Microsoft",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Microsoft/vcrt-forwarders.git"
+    },
+    "bugs": {
+        "url": "https://github.com/Microsoft/vcrt-forwarders/issues"
+     },
+    "dependencies": {},
+    "files": [
+        "package.json.meta"
+    ]
+}
