@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.0.8
+Add support for installing via the Unity Package Manaager
+
 ## 1.0.7
 Sign forwarder DLLs
 
