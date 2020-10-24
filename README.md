@@ -11,6 +11,27 @@ on the CRT (debug / release) in use in the component project. For projects using
 directly rather than via project (i.e C++ applications), the `VCRTForwarders-IncludeDebugCRT` property can be set to `true`
 for that configuration to ensure inclusion of the debug CRT forwarders.
 
+## Unity Package Manager (UPM) Package
+
+When using Unity 2019.4 and newer, Microsoft.VCRTForwarders.140 can be installed via the Unity Package Manager by using a scoped registry.
+
+To install,
+
+- In Unity, open `Edit` > `Project Settings`
+- Select `Package Manager` from the options on the left-hand side of the Project Settings window
+- Add a new Scoped Registry with the following settings
+  - Name: Microsoft Mixed Reality
+  - URL: https://pkgs.dev.azure.com/aipmr/MixedReality-Unity-Packages/_packaging/Unity-packages/npm/registry/
+  - Scopes:
+    - com.microsoft.mixedreality
+    - com.microsoft.spatialaudio
+    - com.microsoft.vcrt.forwarders
+- Click `Apply`
+- In a text editor, open <project root>\Packages\manifest.json
+- Create a line, beneath `"dependencies": {`, containing `"com.microsoft.vcrt.forwarders.140": "1.0.8",`
+- Save and close the manifest.json file
+- Unity will import the package
+
 ## Sample usage
 
 You can find samples of C++ and C# apps using the forwarders [here](https://aka.ms/regfreewinrtsample).

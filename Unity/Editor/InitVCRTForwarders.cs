@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Runtime.InteropServices;
 using UnityEditor;
@@ -32,18 +33,37 @@ public class InitVCRTForwarders
             return;
         }
 
-        // Find a representative VCRTForwarders binary - there should be only one.
-        var assets = AssetDatabase.FindAssets(Path.GetFileNameWithoutExtension(moduleName));
-        if (assets.Length != 1)
+        List<string> searchFolders = new List<string>()
         {
-            Debug.LogError(string.Format("Failed to find single asset for {0}; found {1} instead!", moduleName, assets.Length));
+            Application.dataPath,                                       // Assets folder
+            Path.GetFullPath(Path.Combine("Library", "PackageCache")),  // Library\PackageCache folder
+            Path.GetFullPath("Packages")                                // Pacakges folder
+        };
+
+        // Find a representative VCRTForwarders binary - there should be only one.
+        string dllDirectory = string.Empty;
+        for (int i = 0; i < searchFolders.Count; i++)
+        {
+            string[] files = Directory.GetFiles(searchFolders[i], moduleName, SearchOption.AllDirectories);
+            if (files.Length == 0) { continue; }
+
+            if (files.Length == 1)
+            {
+                dllDirectory = files[0];
+                break;
+            }
+
+            Debug.LogError(string.Format("Failed to find single asset for {0}; found {1} instead!", moduleName, files.Length));
             return;
         }
 
-        char[] delims = { '/', '\\' };
-        var assetDirectoryPath = Application.dataPath;
-        var lastDelim = assetDirectoryPath.TrimEnd(delims).LastIndexOfAny(delims); // trim off Assets folder since it's also included in asset path
-        var dllDirectory = Path.Combine(assetDirectoryPath.Substring(0, lastDelim), Path.GetDirectoryName(AssetDatabase.GUIDToAssetPath(assets[0]))).Replace('/', '\\');
+        if (string.IsNullOrEmpty(dllDirectory))
+        {
+            Debug.LogError($"Failed to find {moduleName}.");
+            return;
+        }
+            
+        dllDirectory = dllDirectory.Replace('/', '\\');
         if (AddDllDirectory(dllDirectory) == 0)
         {
             Debug.LogError(string.Format("Failed to set DLL directory {0}: Win32 error {1}", dllDirectory, Marshal.GetLastWin32Error()));

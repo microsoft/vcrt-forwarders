@@ -17,6 +17,7 @@ popd
 copy /y "%~dp0\LICENSE" "%~dp0\Unity\LICENSE.md"
 copy /y "%~dp0\CHANGELOG.md" "%~dp0\Unity\CHANGELOG.md"
 copy /y "%~dp0\README.md" "%~dp0\Unity\Documentation~\README.md"
+copy /y "%~dp0\LICENSE" "%~dp0\Unity\Documentation~\LICENSE"
 
 where nuget.exe >nul 2>&1 || echo Couldn't find nuget.exe! && goto :eof
 nuget pack vcrt-forwarders.nuspec
