@@ -44,7 +44,7 @@ public class InitVCRTForwarders
         string dllDirectory = string.Empty;
         foreach (var searchFolder in searchFolders)
         {
-            string[] files = Directory.GetFiles(searchFolders[i], moduleName, SearchOption.AllDirectories);
+            string[] files = Directory.GetFiles(searchFolder, moduleName, SearchOption.AllDirectories);
             if (files.Length == 0) { continue; }
 
             if (files.Length == 1)
