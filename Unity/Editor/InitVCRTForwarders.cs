@@ -42,7 +42,7 @@ public class InitVCRTForwarders
 
         // Find a representative VCRTForwarders binary - there should be only one.
         string dllDirectory = string.Empty;
-        for (int i = 0; i < searchFolders.Count; i++)
+        foreach (var searchFolder in searchFolders)
         {
             string[] files = Directory.GetFiles(searchFolders[i], moduleName, SearchOption.AllDirectories);
             if (files.Length == 0) { continue; }
