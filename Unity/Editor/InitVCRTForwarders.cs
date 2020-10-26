@@ -37,7 +37,7 @@ public class InitVCRTForwarders
         {
             Application.dataPath,                                       // Assets folder
             Path.GetFullPath(Path.Combine("Library", "PackageCache")),  // Library\PackageCache folder
-            Path.GetFullPath("Packages")                                // Pacakges folder
+            Path.GetFullPath("Packages")                                // Packages folder
         };
 
         // Find a representative VCRTForwarders binary - there should be only one.
