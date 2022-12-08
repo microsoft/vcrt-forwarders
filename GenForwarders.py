@@ -2,6 +2,7 @@ import glob
 import os
 import subprocess
 import sys
+import uuid
 
 if len(sys.argv) != 3:
 	print("Usage: GenForwarders.py <vs_folder> <vc_version_to_generate>")
@@ -12,6 +13,12 @@ VSFolder = sys.argv[1]
 VCVersion = sys.argv[2]
 
 archs = ["x86", "x64", "arm64"]
+
+archProjectMap = {
+	"arm64": "ARM64",
+	"x86": "Win32",
+	"x64": "x64"
+};
 
 importLibMapping = {
 	"concrt140" : "concrt.lib",
@@ -151,6 +158,89 @@ BEGIN
 END
 ''')
 
+
+def WriteProjectFile(projectFile, guid, module, arch, isRelease):
+	config = "Debug" if not isRelease else "Release"
+	onInDebug = "true" if not isRelease else "false"
+	offInDebug = "false" if not isRelease else "true"
+	dbgDefine = "_DEBUG" if not isRelease else "NDEBUG"
+	optimization = "Disabled" if not isRelease else "MaxSpeed"
+	arch = archProjectMap[arch]
+	if guid is None:
+		guid = str(uuid.uuid4()).upper()
+	cleanRootNamespace = module.replace("_", "") + "app"
+	projectFile.write(f'''<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="{config}|{arch}">
+      <Configuration>{config}</Configuration>
+      <Platform>{arch}</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>15.0</VCProjectVersion>
+    <ProjectGuid>{{{guid}}}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>{cleanRootNamespace}</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0.22621.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='{config}|{arch}'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>{onInDebug}</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>{offInDebug}</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='{config}|{arch}'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='{config}|{arch}'">
+    <LinkIncremental>{onInDebug}</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='{config}|{arch}'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>{optimization}</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>{dbgDefine};_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>{offInDebug}</EnableCOMDATFolding>
+      <OptimizeReferences>{offInDebug}</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalOptions>/NOENTRY %(AdditionalOptions)</AdditionalOptions>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="{module}_app.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="version.rc" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>''')
+
+def GetProjectGuid(projectFile):
+	for line in iter(projectFile.readline,b''):
+		strippedLine = line.strip()
+
+		# ignore all lines other than for symbol entry
+		if "ProjectGuid" not in strippedLine:
+			continue
+		return strippedLine.split("{")[1].split("}")[0]
+
 # main logic to go through each module and generate forwarders
 errors = []
 for arch in archs:
@@ -165,6 +255,15 @@ for arch in archs:
 		outputFolder = GetOutputFolder(arch, item[1], module)
 		if not os.path.exists(outputFolder):
 			os.makedirs(outputFolder)
+
+		projects = glob.glob(os.path.join(outputFolder, "*.vcxproj"))
+		existingProjectGuid = None
+		if len(projects) == 1:
+			with open(projects[0], "r") as projectFile:
+				existingProjectGuid = GetProjectGuid(projectFile)
+
+		with open(os.path.join(outputFolder, str.format("{0}_app.vcxproj", module)), "w") as projectFile:
+			WriteProjectFile(projectFile, existingProjectGuid, module, arch, item[1])
 
 		with open(os.path.join(outputFolder, "version.rc"), "w") as resFile:
 			WriteVersionInfo(resFile, module)
