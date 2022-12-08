@@ -17,9 +17,11 @@ importLibMapping = {
 	"concrt140" : "concrt.lib",
 	"concrt140d" : "concrtd.lib",
 	"msvcp140_1" : "msvcprt.lib",
-	"msvcp140_1d" : "msvcprt.lib",
+	"msvcp140_1d" : "msvcprtd.lib",
 	"msvcp140_2" : "msvcprt.lib",
-	"msvcp140_2d" : "msvcprt.lib",
+	"msvcp140_2d" : "msvcprtd.lib",
+	"msvcp140_atomic_wait" : "msvcprt.lib",
+	"msvcp140d_atomic_wait" : "msvcprtd.lib",
 	"msvcp140" : "msvcprt.lib",
 	"msvcp140d" : "msvcprtd.lib",
 	"vcamp140" : "vcamp.lib",
@@ -32,7 +34,19 @@ importLibMapping = {
 	"vcruntime140d" : "vcruntimed.lib",
 	"vcruntime140_1" : "vcruntime.lib",
 	"vcruntime140_1d" : "vcruntimed.lib",
+	"msvcp140_codecvt_ids" : None,
+	"msvcp140d_codecvt_ids" : None,
 };
+
+# Some versions of MSVC ship with the libraries and tools in different
+# directories. Since this tool takes *library* versions, this map will
+# be used to map those to tool versions.
+libraryToolsVersionMapping = {
+	"14.34.31931": "14.34.31933"
+};
+
+def GetToolsVersion(libVersion):
+	return libraryToolsVersionMapping[libVersion] if libVersion in libraryToolsVersionMapping else libVersion
 
 def GetModules(arch):
 	modules = []
@@ -47,13 +61,16 @@ def GetModules(arch):
 
 	modules += [[module, False] for module in debugModules]
 
+	# The LLVM modules do not ship _app versions, and we must skip them.
+	modules = [tpl for tpl in modules if ("LLVM" not in tpl[0])]
+
 	return modules
 
 def GetImportLibFolder(arch):
-	return os.path.join(VSFolder, r"VC\Tools\MSVC", VCVersion, "lib", arch)
+	return os.path.join(VSFolder, r"VC\Tools\MSVC", GetToolsVersion(VCVersion), "lib", arch)
 
 def GetDumpbin():
-	return os.path.join(VSFolder, r"VC\Tools\MSVC", VCVersion, r"bin\Hostx86\x86\dumpbin.exe")
+	return os.path.join(VSFolder, r"VC\Tools\MSVC", GetToolsVersion(VCVersion), r"bin\Hostx86\x86\dumpbin.exe")
 
 def GenerateSymbolMapping(importLibPath):
 	symbolTable = {}
@@ -75,18 +92,25 @@ def GenerateSymbolMapping(importLibPath):
 		symbol = strippedLine.split(":")[1].strip().split(" ")[0].strip()
 		name = name.split(":")[1].strip()
 		nameType = nameType.split(":")[1].strip()
-		
-		if name in symbolTable:
-			raise ValueError
 
 		if nameType == "no prefix":
-			symbolTable[name] = symbol
+			finalMapping = symbol
 		elif nameType == "name":
-			symbolTable[name] = name
+			finalMapping = name
 		elif nameType == "undecorate":
-			symbolTable[name] = "_" + name
+			finalMapping = "_" + name
+		elif nameType == "exportas":
+			# exportas is seemingly used for symbol aliases, and can be ignored
+			# since we process this table by enumerating exports, we only
+			# see the names after they've gone through exportas.
+			continue
 		else:
-			raise ValueError(nameType)
+			raise ValueError(importLibPath, name, nameType)
+
+		if name in symbolTable and symbolTable[name] != finalMapping:
+			raise ValueError(importLibPath, name, symbolTable[name], finalMapping)
+
+		symbolTable[name] = finalMapping
 
 	return symbolTable
 
@@ -103,6 +127,9 @@ for arch in archs:
 		modulePath = item[0]
 		module = os.path.splitext(os.path.basename(modulePath))[0]
 
+		if module in importLibMapping.keys() and None == importLibMapping[module]:
+			# We're skipping this library on purpose.
+			continue
 		symbolMapping = GenerateSymbolMapping(os.path.join(GetImportLibFolder(arch), importLibMapping[module]))
 		outputFolder = GetOutputFolder(arch, item[1], module)
 		if not os.path.exists(outputFolder):
@@ -132,7 +159,7 @@ for arch in archs:
 				if function == "_EH_prolog":
 					outputFile.write(str.format("""#pragma comment(linker, "/export:{0}={1}.{2}")\n""", "__EH_prolog", module, function))
 				else:
-					errors += [[module, function]]
+					errors += [[arch, module, function]]
 			else:
 				outputFile.write(str.format("""#pragma comment(linker, "/export:{0}={1}.{2}")\n""", symbolMapping[function], module, function))
 				
