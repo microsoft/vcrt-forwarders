@@ -120,6 +120,37 @@ def GetOutputFolder(arch, isRelease, module):
 	folderSuffix = "release" if isRelease else "debug"
 	return str.format(r"140_{0}\vcrt_fwd_{1}_{0}\{2}_app", folderSuffix, arch, module)
 
+def WriteVersionInfo(resFile, module):
+	VersionResStyle = VCVersion.replace(".", ",") + ",0"
+	resFile.write(f'''
+#include <Windows.h>
+VS_VERSION_INFO VERSIONINFO
+FILEVERSION {VersionResStyle}
+PRODUCTVERSION {VersionResStyle}
+FILEFLAGSMASK VS_FFI_FILEFLAGSMASK
+FILEOS VOS__WINDOWS32
+FILETYPE VFT_DLL
+FILESUBTYPE VFT2_UNKNOWN
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904E4"
+        BEGIN
+            VALUE "CompanyName", "Microsoft Corporation"
+            VALUE "FileDescription", "{module} Forwarder"
+            VALUE "FileVersion", "{VCVersion}"
+            VALUE "InternalName", "{module}_app"
+            VALUE "ProductName", "{module} Forwarder"
+            VALUE "ProductVersion", "{VCVersion}"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x0409, 1252
+    END
+END
+''')
+
 # main logic to go through each module and generate forwarders
 errors = []
 for arch in archs:
@@ -134,6 +165,9 @@ for arch in archs:
 		outputFolder = GetOutputFolder(arch, item[1], module)
 		if not os.path.exists(outputFolder):
 			os.makedirs(outputFolder)
+
+		with open(os.path.join(outputFolder, "version.rc"), "w") as resFile:
+			WriteVersionInfo(resFile, module)
 		outputFile = open(os.path.join(outputFolder, module + "_app.cpp"), "w")
 		
 		output = subprocess.Popen([GetDumpbin(), "/exports", modulePath], stdout=subprocess.PIPE)
