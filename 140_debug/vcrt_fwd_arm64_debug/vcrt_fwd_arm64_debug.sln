@@ -19,8 +19,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "vcomp140d_app", "vcomp140d_
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "vcruntime140d_app", "vcruntime140d_app\vcruntime140d_app.vcxproj", "{92F726F8-2A91-4A81-B78A-F14012097FA0}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "vcrt_fwd_arm64_debug", "vcrt_fwd_arm64_debug\vcrt_fwd_arm64_debug.vcxproj", "{74291B62-6CD3-49F7-9C59-DB43BDC0DD3F}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|ARM64 = Debug|ARM64
@@ -42,8 +40,6 @@ Global
 		{A9496A70-646B-4A27-B66F-EF0ACB8A8D2A}.Debug|ARM64.Build.0 = Debug|ARM64
 		{92F726F8-2A91-4A81-B78A-F14012097FA0}.Debug|ARM64.ActiveCfg = Debug|ARM64
 		{92F726F8-2A91-4A81-B78A-F14012097FA0}.Debug|ARM64.Build.0 = Debug|ARM64
-		{74291B62-6CD3-49F7-9C59-DB43BDC0DD3F}.Debug|ARM64.ActiveCfg = Debug|ARM64
-		{74291B62-6CD3-49F7-9C59-DB43BDC0DD3F}.Debug|ARM64.Build.0 = Debug|ARM64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

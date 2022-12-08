@@ -1,10 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.271
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33122.133
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "vcrt_fwd_x86_debug", "vcrt_fwd_x86_debug\vcrt_fwd_x86_debug.vcxproj", "{185D2E65-E2D1-4FAC-88E1-45C4A1A68A7C}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "concrt140d_app", "concrt140d_app\concrt140d_app.vcxproj", "{6FC60ABF-9923-4179-8660-072D0E5234C1}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "msvcp140_1d_app", "msvcp140_1d_app\msvcp140_1d_app.vcxproj", "{B35A9977-9E24-4955-ACFC-F965D22A40F5}"
@@ -26,8 +24,6 @@ Global
 		Debug|x86 = Debug|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{185D2E65-E2D1-4FAC-88E1-45C4A1A68A7C}.Debug|x86.ActiveCfg = Debug|Win32
-		{185D2E65-E2D1-4FAC-88E1-45C4A1A68A7C}.Debug|x86.Build.0 = Debug|Win32
 		{6FC60ABF-9923-4179-8660-072D0E5234C1}.Debug|x86.ActiveCfg = Debug|Win32
 		{6FC60ABF-9923-4179-8660-072D0E5234C1}.Debug|x86.Build.0 = Debug|Win32
 		{B35A9977-9E24-4955-ACFC-F965D22A40F5}.Debug|x86.ActiveCfg = Debug|Win32

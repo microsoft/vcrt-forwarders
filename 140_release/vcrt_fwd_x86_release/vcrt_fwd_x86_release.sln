@@ -1,10 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.271
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33122.133
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "vcrt_fwd_x86_release", "vcrt_fwd_x86_release\vcrt_fwd_x86_release.vcxproj", "{0CC91CD1-2E9E-42C0-B450-BAD74267225F}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "concrt140_app", "concrt140_app\concrt140_app.vcxproj", "{88D00DE4-A6F2-43DF-A213-24B4B340358F}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "msvcp140_1_app", "msvcp140_1_app\msvcp140_1_app.vcxproj", "{1869C840-E9A2-4079-BD0F-2CE072BCE334}"
@@ -26,8 +24,6 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{0CC91CD1-2E9E-42C0-B450-BAD74267225F}.Release|x86.ActiveCfg = Release|Win32
-		{0CC91CD1-2E9E-42C0-B450-BAD74267225F}.Release|x86.Build.0 = Release|Win32
 		{88D00DE4-A6F2-43DF-A213-24B4B340358F}.Release|x86.ActiveCfg = Release|Win32
 		{88D00DE4-A6F2-43DF-A213-24B4B340358F}.Release|x86.Build.0 = Release|Win32
 		{1869C840-E9A2-4079-BD0F-2CE072BCE334}.Release|x86.ActiveCfg = Release|Win32
