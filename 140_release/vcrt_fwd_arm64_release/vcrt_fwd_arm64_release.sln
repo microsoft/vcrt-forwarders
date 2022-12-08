@@ -19,6 +19,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "vcomp140_app", "vcomp140_ap
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "vcruntime140_app", "vcruntime140_app\vcruntime140_app.vcxproj", "{7549B17A-7DDC-4931-A5C8-983AF1EEB58A}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "msvcp140_atomic_wait_app", "msvcp140_atomic_wait_app\msvcp140_atomic_wait_app.vcxproj", "{4ADBDCED-86F2-4E86-9E8A-7C50D3DB6686}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "vcruntime140_1_app", "vcruntime140_1_app\vcruntime140_1_app.vcxproj", "{BCE90EC1-6819-4274-A5FC-20644939A5F8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Release|ARM64 = Release|ARM64
@@ -40,6 +44,10 @@ Global
 		{3A84941A-0267-44D8-991D-7DA5BE78E4D7}.Release|ARM64.Build.0 = Release|ARM64
 		{7549B17A-7DDC-4931-A5C8-983AF1EEB58A}.Release|ARM64.ActiveCfg = Release|ARM64
 		{7549B17A-7DDC-4931-A5C8-983AF1EEB58A}.Release|ARM64.Build.0 = Release|ARM64
+		{4ADBDCED-86F2-4E86-9E8A-7C50D3DB6686}.Release|ARM64.ActiveCfg = Release|ARM64
+		{4ADBDCED-86F2-4E86-9E8A-7C50D3DB6686}.Release|ARM64.Build.0 = Release|ARM64
+		{BCE90EC1-6819-4274-A5FC-20644939A5F8}.Release|ARM64.ActiveCfg = Release|ARM64
+		{BCE90EC1-6819-4274-A5FC-20644939A5F8}.Release|ARM64.Build.0 = Release|ARM64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

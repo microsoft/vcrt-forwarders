@@ -21,6 +21,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "vccorlib140d_app", "vccorli
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "vcruntime140_1d_app", "vcruntime140_1d_app\vcruntime140_1d_app.vcxproj", "{02F7C3EF-72C7-4643-BF65-97CD5B2B03FA}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "msvcp140d_atomic_wait_app", "msvcp140d_atomic_wait_app\msvcp140d_atomic_wait_app.vcxproj", "{4A53A253-37A3-4E3F-9DCF-272743EC5D11}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -44,6 +46,8 @@ Global
 		{962C60D1-A35B-4375-B48B-E2DBBBC01757}.Debug|x64.Build.0 = Debug|x64
 		{02F7C3EF-72C7-4643-BF65-97CD5B2B03FA}.Debug|x64.ActiveCfg = Debug|x64
 		{02F7C3EF-72C7-4643-BF65-97CD5B2B03FA}.Debug|x64.Build.0 = Debug|x64
+		{4A53A253-37A3-4E3F-9DCF-272743EC5D11}.Debug|x64.ActiveCfg = Debug|x64
+		{4A53A253-37A3-4E3F-9DCF-272743EC5D11}.Debug|x64.Build.0 = Debug|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
