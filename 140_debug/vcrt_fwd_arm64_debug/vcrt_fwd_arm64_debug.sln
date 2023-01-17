@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.645
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33122.133
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "concrt140d_app", "concrt140d_app\concrt140d_app.vcxproj", "{92938D05-8066-48FB-8F1C-78DAC379E8BE}"
 EndProject
@@ -19,7 +19,9 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "vcomp140d_app", "vcomp140d_
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "vcruntime140d_app", "vcruntime140d_app\vcruntime140d_app.vcxproj", "{92F726F8-2A91-4A81-B78A-F14012097FA0}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "vcrt_fwd_arm64_debug", "vcrt_fwd_arm64_debug\vcrt_fwd_arm64_debug.vcxproj", "{74291B62-6CD3-49F7-9C59-DB43BDC0DD3F}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "msvcp140d_atomic_wait_app", "msvcp140d_atomic_wait_app\msvcp140d_atomic_wait_app.vcxproj", "{F2B284F2-DA3A-4D94-929C-248F2C465985}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "vcruntime140_1d_app", "vcruntime140_1d_app\vcruntime140_1d_app.vcxproj", "{4C9DAC10-B8CA-40E6-8839-1406C22686C8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -42,8 +44,10 @@ Global
 		{A9496A70-646B-4A27-B66F-EF0ACB8A8D2A}.Debug|ARM64.Build.0 = Debug|ARM64
 		{92F726F8-2A91-4A81-B78A-F14012097FA0}.Debug|ARM64.ActiveCfg = Debug|ARM64
 		{92F726F8-2A91-4A81-B78A-F14012097FA0}.Debug|ARM64.Build.0 = Debug|ARM64
-		{74291B62-6CD3-49F7-9C59-DB43BDC0DD3F}.Debug|ARM64.ActiveCfg = Debug|ARM64
-		{74291B62-6CD3-49F7-9C59-DB43BDC0DD3F}.Debug|ARM64.Build.0 = Debug|ARM64
+		{F2B284F2-DA3A-4D94-929C-248F2C465985}.Debug|ARM64.ActiveCfg = Debug|ARM64
+		{F2B284F2-DA3A-4D94-929C-248F2C465985}.Debug|ARM64.Build.0 = Debug|ARM64
+		{4C9DAC10-B8CA-40E6-8839-1406C22686C8}.Debug|ARM64.ActiveCfg = Debug|ARM64
+		{4C9DAC10-B8CA-40E6-8839-1406C22686C8}.Debug|ARM64.Build.0 = Debug|ARM64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

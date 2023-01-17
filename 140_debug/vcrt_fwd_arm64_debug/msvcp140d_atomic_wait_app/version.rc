@@ -1,0 +1,27 @@
+
+#include <Windows.h>
+VS_VERSION_INFO VERSIONINFO
+FILEVERSION 14,34,31931,0
+PRODUCTVERSION 14,34,31931,0
+FILEFLAGSMASK VS_FFI_FILEFLAGSMASK
+FILEOS VOS__WINDOWS32
+FILETYPE VFT_DLL
+FILESUBTYPE VFT2_UNKNOWN
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904E4"
+        BEGIN
+            VALUE "CompanyName", "Microsoft Corporation"
+            VALUE "FileDescription", "msvcp140d_atomic_wait Forwarder"
+            VALUE "FileVersion", "14.34.31931"
+            VALUE "InternalName", "msvcp140d_atomic_wait_app"
+            VALUE "ProductName", "msvcp140d_atomic_wait Forwarder"
+            VALUE "ProductVersion", "14.34.31931"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x0409, 1252
+    END
+END

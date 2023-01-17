@@ -2,7 +2,7 @@
 <package>
     <metadata>
         <id>Microsoft.VCRTForwarders.140</id>
-        <version>1.0.7</version>
+        <version>1.1.0</version>
         <title>VCRT 140 App-Local DLL Forwarders</title>
         <authors>Microsoft</authors>
         <owners>Microsoft</owners>
@@ -13,6 +13,12 @@
         <requireLicenseAcceptance>true</requireLicenseAcceptance>
         <description>App-local DLLs that forward to runtime components of Visual C++ libraries which are required to run Visual C++ applications. The runtime components being forwarded to should already be installed on a given machine, this can be done using the Visual C++ Redistributable Packages https://aka.ms/AA4pp63. See https://github.com/Microsoft/vcrt-forwarders for more details. </description>
         <releaseNotes>
+            1.1.0
+            Update to runtime 14.34.31931
+            - This distribution now includes a msvcp140_atomic_wait forwarder
+            Add version information to all DLLs
+            Disable entrypoint generation for all DLLs (reduces file size)
+
             1.0.7
             Sign forwarder DLLs
 
