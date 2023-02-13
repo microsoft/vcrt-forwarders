@@ -33,7 +33,7 @@
           { "Configuration", Configuration },
           { "Platform", Platform }
         };
-        
+
         // Per MSDN, _DEBUG define can be checked to determine if debug CRT is in use.
         var collection = new ProjectCollection(properties);
         var project = collection.LoadProject(ProjectFile);
@@ -57,21 +57,28 @@
     </Task>
   </UsingTask>
   
-  <Target Name="ResolveVCRTForwarderReferences">
-    <UseDebugCRT ProjectFile="%(ProjectReferenceWithConfiguration.Identity)"
-                 Configuration="%(ProjectReferenceWithConfiguration.Configuration)"
-                 Platform="%(ProjectReferenceWithConfiguration.Platform)"
-                 Condition="'@(ProjectReferenceWithConfiguration)' != '' And '$(VCRTForwarders-IncludeDebugCRT)' == ''">
-      <Output ItemName="TaskOutput" TaskParameter="TaskOutput"/>
+  <Target Name="ResolveVCRTForwarderReferences" Condition="$(_VCRTForwarders-SupportedPlatform) == true">
+    <ItemGroup>
+      <_VCRTForwarders-ProjectReferences Include="@(ProjectReferenceWithConfiguration)">
+        <Configuration Condition="'%(ProjectReferenceWithConfiguration.Configuration)' == ''">$(Configuration)</Configuration>
+        <Platform Condition="'%(ProjectReferenceWithConfiguration.Platform)' == ''">$(Platform)</Platform>
+      </_VCRTForwarders-ProjectReferences>
+    </ItemGroup>
+    <UseDebugCRT ProjectFile="%(_VCRTForwarders-ProjectReferences.Identity)"
+                 Configuration="%(_VCRTForwarders-ProjectReferences.Configuration)"
+                 Platform="%(_VCRTForwarders-ProjectReferences.Platform)"
+                 Condition="'@(_VCRTForwarders-ProjectReferences)' != '' And 
+                            '$(VCRTForwarders-IncludeDebugCRT)' == ''">
+      <Output ItemName="_VCRTForwarders-TaskOutput" TaskParameter="TaskOutput"/>
     </UseDebugCRT>
     <PropertyGroup>
-      <VCRTForwarders-IncludeDebugCRT Condition="'%(TaskOutput.Identity)' == 'true'">true</VCRTForwarders-IncludeDebugCRT>
+      <VCRTForwarders-IncludeDebugCRT Condition="'%(_VCRTForwarders-TaskOutput.Identity)' == 'true'">true</VCRTForwarders-IncludeDebugCRT>
     </PropertyGroup>
     
-    <ItemGroup Condition="$(VCRTForwarders-IncludeDebugCRT) == true And $(_VCRTForwarders-SupportedPlatform) == true">
+    <ItemGroup Condition="$(VCRTForwarders-IncludeDebugCRT) == true">
       <ReferenceCopyLocalPaths Include="$(MSBuildThisFileDirectory)..\..\runtimes\win10-$(_VCRTForwarders-Platform)\native\debug\*.dll" />
     </ItemGroup>
-    <ItemGroup Condition="$(_VCRTForwarders-SupportedPlatform) == true">
+    <ItemGroup>
       <ReferenceCopyLocalPaths Include="$(MSBuildThisFileDirectory)..\..\runtimes\win10-$(_VCRTForwarders-Platform)\native\release\*.dll" />
     </ItemGroup>
   </Target>
