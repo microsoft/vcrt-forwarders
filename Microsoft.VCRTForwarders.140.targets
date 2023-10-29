@@ -76,10 +76,10 @@
     </PropertyGroup>
     
     <ItemGroup Condition="$(VCRTForwarders-IncludeDebugCRT) == true">
-      <ReferenceCopyLocalPaths Include="$(MSBuildThisFileDirectory)..\..\runtimes\win10-$(_VCRTForwarders-Platform)\native\debug\*.dll" />
+      <ReferenceCopyLocalPaths Include="$(MSBuildThisFileDirectory)..\..\runtimes\win-$(_VCRTForwarders-Platform)\native\debug\*.dll" />
     </ItemGroup>
     <ItemGroup>
-      <ReferenceCopyLocalPaths Include="$(MSBuildThisFileDirectory)..\..\runtimes\win10-$(_VCRTForwarders-Platform)\native\release\*.dll" />
+      <ReferenceCopyLocalPaths Include="$(MSBuildThisFileDirectory)..\..\runtimes\win-$(_VCRTForwarders-Platform)\native\release\*.dll" />
     </ItemGroup>
   </Target>
 

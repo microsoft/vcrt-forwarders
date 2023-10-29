@@ -1,0 +1,271 @@
+name: $(date:yyyyMMdd)$(rev:.r)
+
+resources:
+  repositories:
+  - repository: 1ESPipelineTemplates
+    type: git
+    name: 1ESPipelineTemplates/1ESPipelineTemplates
+    ref: refs/tags/release
+extends:
+  template: v1/1ES.Official.PipelineTemplate.yml@1ESPipelineTemplates
+  parameters:
+    pool:
+      name: Azure-Pipelines-1ESPT-ExDShared
+      image: windows-2022
+      os: windows
+    customBuildTags:
+    - ES365AIMigrationTooling
+    
+    stages:
+    - stage: stage
+      jobs:
+      - job: Job_1
+        displayName: Build
+        steps:
+        - checkout: self
+          fetchTags: true
+          persistCredentials: True
+
+        - task: VSBuild@1
+          displayName: vcrt_fwd_x86_debug
+          inputs:
+            solution: 140_debug/vcrt_fwd_x86_debug/vcrt_fwd_x86_debug.sln
+            vsVersion: 17.0
+            platform: x86
+            configuration: Debug
+
+        - task: VSBuild@1
+          displayName: vcrt_fwd_x86_release
+          inputs:
+            solution: 140_release/vcrt_fwd_x86_release/vcrt_fwd_x86_release.sln
+            vsVersion: 17.0
+            platform: x86
+            configuration: Release
+
+        - task: VSBuild@1
+          displayName: vcrt_fwd_x64_debug
+          inputs:
+            solution: 140_debug/vcrt_fwd_x64_debug/vcrt_fwd_x64_debug.sln
+            vsVersion: 17.0
+            platform: x64
+            configuration: Debug
+
+        - task: VSBuild@1
+          displayName: vcrt_fwd_x64_release
+          inputs:
+            solution: 140_release/vcrt_fwd_x64_release/vcrt_fwd_x64_release.sln
+            vsVersion: 17.0
+            platform: x64
+            configuration: Release
+
+        - task: VSBuild@1
+          displayName: vcrt_fwd_ARM64_debug
+          inputs:
+            solution: 140_debug/vcrt_fwd_arm64_debug/vcrt_fwd_arm64_debug.sln
+            vsVersion: 17.0
+            platform: arm64
+            configuration: Debug
+
+        - task: VSBuild@1
+          displayName: vcrt_fwd_ARM64_release
+          inputs:
+            solution: 140_release/vcrt_fwd_arm64_release/vcrt_fwd_arm64_release.sln
+            vsVersion: 17.0
+            platform: arm64
+            configuration: Release
+
+        - task: PublishSymbols@2
+          displayName: Publish symbols path
+          continueOnError: True
+          inputs:
+            SymbolsFolder: $(system.defaultworkingdirectory)
+            SearchPattern: >-
+              140_debug\vcrt_fwd_x64_debug\x64\Debug\*.pdb
+
+              140_debug\vcrt_fwd_x86_debug\Debug\*.pdb
+
+              140_release\vcrt_fwd_x64_release\x64\Release\*.pdb
+
+              140_release\vcrt_fwd_x86_release\Release\*.pdb
+
+              140_debug\vcrt_fwd_arm64_debug\ARM64\Debug\*.pdb
+
+              140_release\vcrt_fwd_arm64_release\ARM64\Release\*.pdb
+            SymbolServerType: TeamServices
+            SymbolsProduct: VcrtForwarders
+
+        - task: CopyFiles@2
+          displayName: Copy x64_Debug to native NuGet dir
+          condition: succeededOrFailed()
+          inputs:
+            SourceFolder: $(system.defaultworkingdirectory)\140_debug\vcrt_fwd_x64_debug\x64\Debug\
+            Contents: |
+              *.dll
+              *.pdb
+            TargetFolder: $(build.artifactstagingdirectory)\vcrt-forwarders\runtimes\win10-x64\native\debug
+
+        - task: CopyFiles@2
+          displayName: Copy x86_Debug to native NuGet dir
+          condition: succeededOrFailed()
+          inputs:
+            SourceFolder: $(system.defaultworkingdirectory)\140_debug\vcrt_fwd_x86_debug\Debug\
+            Contents: |
+              *.dll
+              *.pdb
+            TargetFolder: $(build.artifactstagingdirectory)\vcrt-forwarders\runtimes\win10-x86\native\debug
+
+        - task: CopyFiles@2
+          displayName: Copy x64_Release to native NuGet dir
+          condition: succeededOrFailed()
+          inputs:
+            SourceFolder: $(system.defaultworkingdirectory)\140_release\vcrt_fwd_x64_release\x64\Release\
+            Contents: |
+              *.dll
+              *.pdb
+            TargetFolder: $(build.artifactstagingdirectory)\vcrt-forwarders\runtimes\win10-x64\native\release
+
+        - task: CopyFiles@2
+          displayName: Copy x86_Release to native NuGet dir
+          condition: succeededOrFailed()
+          inputs:
+            SourceFolder: $(system.defaultworkingdirectory)\140_release\vcrt_fwd_x86_release\Release\
+            Contents: |
+              *.dll
+              *.pdb
+            TargetFolder: $(build.artifactstagingdirectory)\vcrt-forwarders\runtimes\win10-x86\native\release
+
+        - task: CopyFiles@2
+          displayName: Copy ARM64_Debug to native NuGet dir
+          condition: succeededOrFailed()
+          inputs:
+            SourceFolder: 140_debug\vcrt_fwd_arm64_debug\ARM64\Debug\
+            Contents: |
+              *.dll
+              *.pdb
+            TargetFolder: $(build.artifactstagingdirectory)\vcrt-forwarders\runtimes\win10-arm64\native\debug
+
+        - task: CopyFiles@2
+          displayName: Copy ARM64_Release to native NuGet dir
+          condition: succeededOrFailed()
+          inputs:
+            SourceFolder: 140_release\vcrt_fwd_arm64_release\ARM64\Release\
+            Contents: |
+              *.dll
+              *.pdb
+            TargetFolder: $(build.artifactstagingdirectory)\vcrt-forwarders\runtimes\win10-arm64\native\release
+
+        - task: CopyFiles@2
+          displayName: Copy Unity files to NuGet staging dir
+          condition: succeededOrFailed()
+          inputs:
+            SourceFolder: $(system.defaultworkingdirectory)
+            Contents: Unity\**
+            TargetFolder: $(build.artifactstagingdirectory)\vcrt-forwarders
+
+        - task: UseDotNet@2
+          displayName: Use .NET Core sdk 6.x
+          inputs:
+            version: 6.x
+
+        - task: EsrpCodeSigning@1
+          displayName: 'ESRP CodeSigning '
+          inputs:
+            ConnectedServiceName: 81cc6790-027c-4ef3-928d-65e8b96a691a
+            FolderPath: $(build.artifactstagingdirectory)\vcrt-forwarders\runtimes
+            Pattern: >-
+              win10-x64\native\debug\*dll
+
+              win10-x86\native\debug\*dll
+
+              win10-x64\native\release\*dll
+
+              win10-x86\native\release\*dll
+
+              win10-arm64\native\debug\*dll
+
+              win10-arm64\native\release\*dll
+            UseMinimatch: true
+            signConfigType: inlineSignParams
+            inlineOperation: >-
+              [
+                {
+                  "keyCode": "CP-230012",
+                  "operationSetCode": "SigntoolSign",
+                  "parameters": [
+                    {
+                      "parameterName": "OpusName",
+                      "parameterValue": "Microsoft"
+                    },
+                    {
+                      "parameterName": "OpusInfo",
+                      "parameterValue": "http://www.microsoft.com"
+                    },
+                    {
+                      "parameterName": "PageHash",
+                      "parameterValue": "/NPH"
+                    },
+                    {
+                      "parameterName": "FileDigest",
+                      "parameterValue": "/fd sha256"
+                    },
+                    {
+                      "parameterName": "TimeStamp",
+                      "parameterValue": "/tr \"http://rfc3161.gtm.corp.microsoft.com/TSS/HttpTspServer\" /td sha256"
+                    }
+                  ],
+                  "toolName": "signtool.exe",
+                  "toolVersion": "6.2.9304.0"
+                }
+              ]
+
+        - task: CopyFiles@2
+          displayName: Copy NuGet Spec
+          condition: succeededOrFailed()
+          inputs:
+            SourceFolder: $(system.defaultworkingdirectory)
+            Contents: >-
+              *.nuspec
+
+              *.targets
+            TargetFolder: $(build.artifactstagingdirectory)\vcrt-forwarders\
+
+        - task: NuGetCommand@2
+          displayName: NuGet Pack
+          inputs:
+            command: pack
+            searchPatternPack: $(build.artifactstagingdirectory)\vcrt-forwarders\vcrt-forwarders.nuspec
+            configurationToPack: ''
+            outputDir: $(build.artifactstagingdirectory)\
+            requestedPatchVersion: 1
+
+        - task: EsrpCodeSigning@1
+          displayName: ESRP Nuget Sign Package
+          inputs:
+            ConnectedServiceName: 81cc6790-027c-4ef3-928d-65e8b96a691a
+            FolderPath: $(build.artifactstagingdirectory)
+            Pattern: Microsoft.VCRTForwarders.140.*.nupkg
+            signConfigType: inlineSignParams
+            inlineOperation: >-
+              [
+                {
+                  "KeyCode" : "CP-401405",
+                  "OperationCode" : "NuGetSign",
+                  "Parameters" : {},
+                  "ToolName" : "sign",
+                  "ToolVersion" : "1.0"
+                },
+                {
+                    "KeyCode" : "CP-401405",
+                    "OperationCode" : "NuGetVerify",
+                    "Parameters" : {},
+                    "ToolName" : "sign",
+                    "ToolVersion" : "1.0"
+                }
+              ]
+
+        templateContext:
+          outputs:
+          - output: pipelineArtifact
+            displayName: 'Publish Artifact: drop'
+            condition: succeededOrFailed()
+            targetPath: $(build.artifactstagingdirectory)
