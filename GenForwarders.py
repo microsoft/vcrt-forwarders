@@ -212,6 +212,7 @@ def WriteProjectFile(projectFile, guid, module, arch, isRelease):
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>{dbgDefine};_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
