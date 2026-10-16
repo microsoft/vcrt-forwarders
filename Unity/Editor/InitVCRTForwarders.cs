@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using UnityEditor;
 using UnityEngine;
@@ -15,41 +16,55 @@ public class InitVCRTForwarders
     static extern bool FreeLibrary(IntPtr moduleHandle);
 
     [DllImport("kernel32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
-    [return: MarshalAs(UnmanagedType.Bool)]
-    static extern int AddDllDirectory(string lpPathName);
+    static extern IntPtr GetModuleHandleW(string moduleName);
 
-    const uint LOAD_LIBRARY_SEARCH_USER_DIRS = 0x00000400;
+    [DllImport("kernel32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
+    static extern IntPtr AddDllDirectory(string lpPathName);
+
+    const uint LOAD_LIBRARY_SEARCH_DLL_LOAD_DIR = 0x00000100;
+    const uint LOAD_LIBRARY_SEARCH_SYSTEM32 = 0x00000800;
 
     const string moduleName = "vcruntime140_app.dll";
 
     static InitVCRTForwarders()
     {
-        IntPtr modulePtr = LoadLibraryExW(moduleName, IntPtr.Zero, LOAD_LIBRARY_SEARCH_USER_DIRS);
-        if (modulePtr != IntPtr.Zero)
+        var initializerPath = GetInitializerPath();
+        if (!Path.IsPathRooted(initializerPath))
         {
-            // DLL search paths already configured in this process; nothing more to do.
+            Debug.LogError("Failed to determine the VCRTForwarders initializer's full path.");
+            return;
+        }
+
+        var dllDirectory = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(initializerPath), "..", "x64"));
+        var modulePath = Path.Combine(dllDirectory, moduleName);
+        if (GetModuleHandleW(modulePath) != IntPtr.Zero)
+        {
+            // The package's module is already loaded in this editor process.
+            return;
+        }
+
+        IntPtr modulePtr = LoadLibraryExW(modulePath, IntPtr.Zero,
+            LOAD_LIBRARY_SEARCH_DLL_LOAD_DIR | LOAD_LIBRARY_SEARCH_SYSTEM32);
+        if (modulePtr == IntPtr.Zero)
+        {
+            Debug.LogError(string.Format("Failed to load {0}: Win32 error {1}", modulePath, Marshal.GetLastWin32Error()));
+            return;
+        }
+
+        if (AddDllDirectory(dllDirectory) == IntPtr.Zero)
+        {
+            var error = Marshal.GetLastWin32Error();
             FreeLibrary(modulePtr);
+            Debug.LogError(string.Format("Failed to set DLL directory {0}: Win32 error {1}", dllDirectory, error));
             return;
         }
 
-        // Find a representative VCRTForwarders binary - there should be only one.
-        var assets = AssetDatabase.FindAssets(Path.GetFileNameWithoutExtension(moduleName));
-        if (assets.Length != 1)
-        {
-            Debug.LogError(string.Format("Failed to find single asset for {0}; found {1} instead!", moduleName, assets.Length));
-            return;
-        }
-
-        char[] delims = { '/', '\\' };
-        var assetDirectoryPath = Application.dataPath;
-        var lastDelim = assetDirectoryPath.TrimEnd(delims).LastIndexOfAny(delims); // trim off Assets folder since it's also included in asset path
-        var dllDirectory = Path.Combine(assetDirectoryPath.Substring(0, lastDelim), Path.GetDirectoryName(AssetDatabase.GUIDToAssetPath(assets[0]))).Replace('/', '\\');
-        if (AddDllDirectory(dllDirectory) == 0)
-        {
-            Debug.LogError(string.Format("Failed to set DLL directory {0}: Win32 error {1}", dllDirectory, Marshal.GetLastWin32Error()));
-            return;
-        }
-
+        // Keep the module loaded across domain reloads instead of probing other DLL directories.
         Debug.Log(string.Format("Added DLL directory {0} to the user search path.", dllDirectory));
+    }
+
+    static string GetInitializerPath([CallerFilePath] string path = "")
+    {
+        return path;
     }
 }
