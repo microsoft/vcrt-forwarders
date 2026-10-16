@@ -15,15 +15,6 @@ for that configuration to ensure inclusion of the debug CRT forwarders.
 
 You can find samples of C++ and C# apps using the forwarders [here](https://aka.ms/regfreewinrtsample).
 
-## Unity editor layout
-
-Keep the package's `Unity\Editor` initializer and sibling `Unity\x64` forwarders together.
-The initializer resolves this directory from its own source-file location, loads the
-package-local runtime module by its full path, and registers that directory for the
-remaining forwarders. The module stays loaded across editor domain reloads. A missing
-package-local module is reported in the Unity console; other project assets are not
-used as a fallback.
-
 ## Contributing
 
 This project welcomes contributions and suggestions.  Most contributions require you to agree to a
